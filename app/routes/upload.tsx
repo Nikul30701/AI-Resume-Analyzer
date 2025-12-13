@@ -7,7 +7,6 @@ import { usePuterStore } from '~/lib/puter';
 import { useNavigate } from 'react-router';
 import { convertPdfToImage } from '~/lib/pdf2img';
 import { generateUUID } from '~/lib/utils';
-import { AIResponseFormat } from '~/constants';
 import { prepareInstructions } from '~/constants';
 
 const upload = () => {
@@ -31,12 +30,12 @@ const upload = () => {
         if(!uploadedFile) return setStatusText('Error: Failed to upload file.')
         
         setStatusText('Converting to image...');
-        const imageFile = await convertPdfToImage(file)
-        if(!imageFile) return setStatusText("Error: Failed to convert PDF to image")
+        const imageFile = await convertPdfToImage(file);
+        if(!imageFile.file) return setStatusText('Error: Failed to convert PDF to image');
 
-        setStatusText('Uploading the image...')
+        setStatusText('Uploading the image...');
         const uploadedImage = await fs.upload([imageFile.file]);
-        if(!uploadedImage) return setStatusText('Error: Failed to upload image.')
+        if(!uploadedImage) return setStatusText('Error: Failed to upload image');
 
         setStatusText('Preparing data...');
 
@@ -70,7 +69,7 @@ const upload = () => {
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
         setStatusText('Analysis complete, redirecting...');
         console.log(data);
-        
+        navigate(`/resume/${uuid}`)
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
