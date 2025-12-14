@@ -3,6 +3,8 @@ import { Link, useParams, useNavigate } from 'react-router';
 import Details from '~/components/Details';
 import Summary from '~/components/Summary';
 import { usePuterStore } from '~/lib/puter';
+import ATS from '~/components/ATS';
+
 
 const meta = () => ([
     {title: 'Resumind | Review' },
