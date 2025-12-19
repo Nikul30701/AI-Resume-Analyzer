@@ -30,7 +30,7 @@ const ResumeCard = ({resume}: {resume: Resume}) => {
                 {!resume.companyName && !resume.jobTitle && <h2 className='!text-black font-bold'>Resume</h2>}
             </div>
             <div className='flex-shrink-0'>
-                <ScoreCircle score={resume.feedback.overallScore} />
+                <ScoreCircle score={resume.feedback?.overallScore ?? 0} />
             </div>
         </div>
         {resumeUrl && (
